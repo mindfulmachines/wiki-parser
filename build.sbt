@@ -8,14 +8,13 @@ lazy val root = (project in file(".")).
     )),
     name := "wiki-parser",
     libraryDependencies ++= Seq(
-      "org.scalatest" %% "scalatest" % "3.0.5",
-      "org.apache.spark" %% "spark-core" % "1.5.2",
-      "org.apache.spark" %% "spark-sql" % "1.5.2",
-      "org.apache.spark" %% "spark-mllib" % "1.5.2",
-      "org.apache.hadoop" % "hadoop-client" % "2.4.0",
+      "org.scalatest" %% "scalatest" % "3.0.5" % "it,test",
+      "org.apache.spark" %% "spark-core" % "1.5.2" % "provided" excludeAll ExclusionRule(organization = "javax.servlet"),
+      "org.apache.spark" %% "spark-sql" % "1.5.2" % "provided" excludeAll ExclusionRule(organization = "javax.servlet"),
+      "org.apache.spark" %% "spark-mllib" % "1.5.2" % "provided" excludeAll ExclusionRule(organization = "javax.servlet"),
+      "org.apache.hadoop" % "hadoop-client" % "2.5.0" % "provided",
       "net.sourceforge.htmlcleaner" % "htmlcleaner" % "2.21",
       "info.bliki.wiki" % "bliki-core" % "3.1.0",
-      "net.java.dev.jets3t" % "jets3t" % "0.9.4",
-      "org.apache.mahout" % "mahout-integration" % "0.13.0"
+      "net.java.dev.jets3t" % "jets3t" % "0.9.4" % "provided"
     )
   )

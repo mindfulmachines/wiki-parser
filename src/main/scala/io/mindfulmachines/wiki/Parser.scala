@@ -134,7 +134,7 @@ object Parser {
     conf.set(XMLInputFormat.START_TAG_KEY, "<page>")
     conf.set(XMLInputFormat.END_TAG_KEY, "</page>")
     val rdd = sc.newAPIHadoopFile(file, classOf[XMLInputFormat], classOf[LongWritable], classOf[Text], conf)
-    rdd.map{case (k,v) => (k.get(), new String(v.copyBytes()))}.repartition(100)
+    rdd.map{case (k,v) => (k.get(), new String(v.copyBytes()))}
   }
 
   /**
