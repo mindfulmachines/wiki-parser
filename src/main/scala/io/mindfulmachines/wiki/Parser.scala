@@ -1,11 +1,11 @@
-package io.mndfulmachines.wiki
+package io.mindfulmachines.wiki
 
 import java.io.ByteArrayInputStream
 
 import info.bliki.wiki.dump.{IArticleFilter, Siteinfo, WikiArticle, WikiXMLParser}
 import info.bliki.wiki.filter.WikipediaParser
 import info.bliki.wiki.model.WikiModel
-import io.mndfulmachines.input.XmlInputFormat
+import io.mindfulmachines.input.XMLInputFormat
 import org.apache.commons.lang3.StringEscapeUtils
 import org.apache.hadoop.conf.Configuration
 import org.apache.hadoop.io.{LongWritable, Text}
@@ -131,9 +131,9 @@ object Parser {
     */
   def readWikiDump(sc: SparkContext, file: String) : RDD[(Long, String)] = {
     val conf = new Configuration()
-    conf.set(XmlInputFormat.START_TAG_KEY, "<page>")
-    conf.set(XmlInputFormat.END_TAG_KEY, "</page>")
-    val rdd = sc.newAPIHadoopFile(file, classOf[XmlInputFormat], classOf[LongWritable], classOf[Text], conf)
+    conf.set(XMLInputFormat.START_TAG_KEY, "<page>")
+    conf.set(XMLInputFormat.END_TAG_KEY, "</page>")
+    val rdd = sc.newAPIHadoopFile(file, classOf[XMLInputFormat], classOf[LongWritable], classOf[Text], conf)
     rdd.map{case (k,v) => (k.get(), new String(v.copyBytes()))}.repartition(100)
   }
 

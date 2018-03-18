@@ -1,4 +1,4 @@
-package io.mndfulmachines.generic
+package io.mindfulmachines.generic
 
 import org.apache.spark.{SparkContext, SparkConf}
 

@@ -1,8 +1,8 @@
-package io.mndfulmachines.wiki
+package io.mindfulmachines.wiki
 
-import io.mndfulmachines.generic.Spark
 import org.scalatest.FunSuite
 import com.google.common.io.Resources
+import io.mindfulmachines.generic.Spark
 
 class ParserTest extends FunSuite {
 
