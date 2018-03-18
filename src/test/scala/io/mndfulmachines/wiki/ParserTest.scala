@@ -1,6 +1,6 @@
-package wiki
+package io.mndfulmachines.wiki
 
-import generic.Spark
+import io.mndfulmachines.generic.Spark
 import org.scalatest.FunSuite
 import com.google.common.io.Resources
 

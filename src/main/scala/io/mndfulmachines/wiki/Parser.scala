@@ -1,14 +1,14 @@
-package wiki
+package io.mndfulmachines.wiki
 
 import java.io.ByteArrayInputStream
 
 import info.bliki.wiki.dump.{IArticleFilter, Siteinfo, WikiArticle, WikiXMLParser}
 import info.bliki.wiki.filter.WikipediaParser
 import info.bliki.wiki.model.WikiModel
+import io.mndfulmachines.input.XmlInputFormat
 import org.apache.commons.lang3.StringEscapeUtils
 import org.apache.hadoop.conf.Configuration
 import org.apache.hadoop.io.{LongWritable, Text}
-import org.apache.mahout.text.wikipedia.XmlInputFormat
 import org.apache.spark.SparkContext
 import org.apache.spark.rdd.RDD
 import org.htmlcleaner.HtmlCleaner
