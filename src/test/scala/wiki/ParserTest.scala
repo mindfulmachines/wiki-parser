@@ -9,7 +9,7 @@ class ParserTest extends FunSuite {
   test("testParseInternalLinks") {
     val rawpges = Parser.readWikiDump(Spark.sc, "file://" + Resources.getResource("wikidump.xml").getPath)
     val pages = Parser.parsePages(rawpges)
-    assert(Parser.parseInternalLinks(pages.map(_._2)).count() == 7087)
+    assert(Parser.parseInternalLinks(pages.values).count() == 8814)
   }
 
   test("testParsePages") {
@@ -20,7 +20,7 @@ class ParserTest extends FunSuite {
   test("testParseRedirects") {
     val rawpges = Parser.readWikiDump(Spark.sc, "file://" + Resources.getResource("wikidump.xml").getPath)
     val pages = Parser.parsePages(rawpges)
-    val redirects = Parser.parseRedirects(pages.map(_._2))
+    val redirects = Parser.parseRedirects(pages.values)
     assert(redirects.count() == 67)
   }
 

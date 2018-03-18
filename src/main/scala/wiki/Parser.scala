@@ -2,12 +2,13 @@ package wiki
 
 import java.io.ByteArrayInputStream
 
-import info.bliki.wiki.dump.{Siteinfo, IArticleFilter, WikiXMLParser, WikiArticle}
+import info.bliki.wiki.dump.{IArticleFilter, Siteinfo, WikiArticle, WikiXMLParser}
 import info.bliki.wiki.filter.WikipediaParser
 import info.bliki.wiki.model.WikiModel
-import input.WikiInputFormat
 import org.apache.commons.lang3.StringEscapeUtils
-import org.apache.hadoop.io.{Text, LongWritable}
+import org.apache.hadoop.conf.Configuration
+import org.apache.hadoop.io.{LongWritable, Text}
+import org.apache.mahout.text.wikipedia.XmlInputFormat
 import org.apache.spark.SparkContext
 import org.apache.spark.rdd.RDD
 import org.htmlcleaner.HtmlCleaner
@@ -129,7 +130,10 @@ object Parser {
     * https://meta.wikimedia.org/wiki/Data_dump_torrents#enwiki
     */
   def readWikiDump(sc: SparkContext, file: String) : RDD[(Long, String)] = {
-    val rdd = sc.hadoopFile[LongWritable, Text, WikiInputFormat](file)
+    val conf = new Configuration()
+    conf.set(XmlInputFormat.START_TAG_KEY, "<page>")
+    conf.set(XmlInputFormat.END_TAG_KEY, "</page>")
+    val rdd = sc.newAPIHadoopFile(file, classOf[XmlInputFormat], classOf[LongWritable], classOf[Text], conf)
     rdd.map{case (k,v) => (k.get(), new String(v.copyBytes()))}.repartition(100)
   }
 
@@ -156,7 +160,7 @@ object Parser {
           None
         }
       }
-    }.filter(_._2.isDefined).mapValues(_.get)
+    }.flatMapValues(_.toSeq)
   }
 
   /**
