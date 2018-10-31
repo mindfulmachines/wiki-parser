@@ -8,7 +8,7 @@ lazy val root = (project in file(".")).
     )),
     name := "wiki-parser",
     libraryDependencies ++= Seq(
-      "org.scalatest" %% "scalatest" % "3.0.5" % "it,test",
+      "org.scalatest" %% "scalatest" % "3.0.5" % "test",
       "org.apache.spark" %% "spark-core" % "1.5.2" % "provided" excludeAll ExclusionRule(organization = "javax.servlet"),
       "org.apache.spark" %% "spark-sql" % "1.5.2" % "provided" excludeAll ExclusionRule(organization = "javax.servlet"),
       "org.apache.spark" %% "spark-mllib" % "1.5.2" % "provided" excludeAll ExclusionRule(organization = "javax.servlet"),
